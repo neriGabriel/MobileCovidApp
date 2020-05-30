@@ -22,10 +22,6 @@ android {
         }
     }
 
-    viewBinding {
-        enabled = true
-    }
-
     dataBinding {
         enabled = true
     }
@@ -50,7 +46,7 @@ dependencies {
     //Dependencias do RETROFIT
     //Link => https://square.github.io/retrofit/
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-jackson:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     //Fim das dependencias do RETROFIT
 
     //Dependencias do MVVM
@@ -63,6 +59,12 @@ dependencies {
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     //Fim das dependencias do MVVM
+
+    //Dependencias do RX
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
+    //Fim das dependencias do RX
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
