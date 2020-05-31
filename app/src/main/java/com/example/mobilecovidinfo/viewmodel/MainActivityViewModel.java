@@ -11,10 +11,6 @@ import com.example.mobilecovidinfo.retrofit.RetrofitConfig;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.functions.Consumer;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-
 public class MainActivityViewModel extends ViewModel {
 
     private final RetrofitConfig retrofitConfig;
