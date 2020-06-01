@@ -1,18 +1,24 @@
 package com.example.mobilecovidinfo.adapter;
 
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilecovidinfo.R;
 import com.example.mobilecovidinfo.model.State;
+import com.example.mobilecovidinfo.util.DateUtil;
+import com.example.mobilecovidinfo.util.NumberUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFragmentAdapter.ViewHolder> {
 
@@ -33,9 +39,9 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtState.setText(this.stateList.get(position).getState());
-        holder.txtTotalCases.setText(String.valueOf(this.stateList.get(position).getCases()));
-        holder.txtTotalSuspects.setText(String.valueOf(this.stateList.get(position).getSuspects()));
-        holder.txtDataAtualizacao.setText("Ultima atualização 31/05/2020 17:34:00");
+        holder.txtTotalCases.setText(NumberUtil.currencyFormat(String.valueOf(this.stateList.get(position).getCases())));
+        holder.txtTotalSuspects.setText(NumberUtil.currencyFormat(String.valueOf(this.stateList.get(position).getSuspects())));
+        holder.txtDataAtualizacao.setText("Ultima atualização: "+DateUtil.dateFormat(this.stateList.get(position).getDatetime()));
     }
 
     @Override
@@ -49,6 +55,7 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
         TextView txtTotalCases;
         TextView txtTotalSuspects;
         TextView txtDataAtualizacao;
+        ConstraintLayout mainContainer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +63,7 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
             this.txtTotalCases = itemView.findViewById(R.id.txtTotalCases);
             this.txtTotalSuspects = itemView.findViewById(R.id.txtTotalSuspects);
             this.txtDataAtualizacao = itemView.findViewById(R.id.txtDtAtutalizacao);
+            this.mainContainer = itemView.findViewById(R.id.mainContainer);
         }
     }
 }

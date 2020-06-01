@@ -2,6 +2,8 @@ package com.example.mobilecovidinfo.view;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.Observable;
 import androidx.fragment.app.Fragment;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mobilecovidinfo.R;
 import com.example.mobilecovidinfo.adapter.StateMainFragmentAdapter;
@@ -31,10 +34,11 @@ public class MainFragment extends Fragment {
 
     FragmentMainBinding fragmentMainBinding;
     MainFragmentViewModel mainFragmentViewModel;
-
+    ActionBar actionBar;
 
     private List<State> stateList = new ArrayList<>();
     private StateMainFragmentAdapter stateAdapter;
+
 
 
     public MainFragment() {
@@ -47,6 +51,9 @@ public class MainFragment extends Fragment {
         this.fragmentMainBinding = DataBindingUtil.setContentView(getActivity(), R.layout.fragment_main);
         this.fragmentMainBinding.setLifecycleOwner(this);
         this.fragmentMainBinding.getRoot();
+        this.actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        this.actionBar.setTitle("Covid Info");
+
         this.mainFragmentViewModel = new ViewModelProvider(this).get(MainFragmentViewModel.class);
 
         this.stateAdapter = new StateMainFragmentAdapter(this.stateList);
@@ -58,8 +65,13 @@ public class MainFragment extends Fragment {
         });
 
         this.mainFragmentViewModel.getCovidInfo().observe(fragmentMainBinding.getLifecycleOwner(), states -> {
-            this.stateList.addAll(states);
-            this.stateAdapter.notifyDataSetChanged();
+            if(states != null) {
+                this.stateList.addAll(states);
+                this.stateAdapter.notifyDataSetChanged();
+            }else {
+                Toast.makeText(getContext(), "Não foi possível conectar ao provedor de informações!", Toast.LENGTH_SHORT).show();
+            }
+
         });
 
         return this.getView();
