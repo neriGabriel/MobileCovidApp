@@ -2,6 +2,8 @@ package com.example.mobilecovidinfo.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -60,19 +62,22 @@ public class MainFragment extends Fragment {
         this.fragmentMainBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         this.fragmentMainBinding.recyclerView.setAdapter(this.stateAdapter);
 
-        this.mainFragmentViewModel.getAlertMessage().observe(fragmentMainBinding.getLifecycleOwner(), s -> {
-            fragmentMainBinding.txtAlerta.setText(s);
-        });
-
         this.mainFragmentViewModel.getCovidInfo().observe(fragmentMainBinding.getLifecycleOwner(), states -> {
             if(states != null) {
                 this.stateList.addAll(states);
                 this.stateAdapter.notifyDataSetChanged();
+
+                this.mainFragmentViewModel.getAlertMessage().observe(fragmentMainBinding.getLifecycleOwner(), s -> {
+                    fragmentMainBinding.txtAlerta.setText(s);
+                });
+
             }else {
                 Toast.makeText(getContext(), "Não foi possível conectar ao provedor de informações!", Toast.LENGTH_SHORT).show();
             }
 
         });
+
+
 
         return view;
     }

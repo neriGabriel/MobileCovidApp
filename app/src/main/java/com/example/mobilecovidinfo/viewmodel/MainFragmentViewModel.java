@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.mobilecovidinfo.model.Data;
 import com.example.mobilecovidinfo.model.State;
 import com.example.mobilecovidinfo.retrofit.RetrofitConfig;
+import com.example.mobilecovidinfo.util.NumberUtil;
 
 import java.util.List;
 import java.util.Random;
@@ -26,9 +27,14 @@ public class MainFragmentViewModel extends ViewModel {
     }
 
     public MutableLiveData<String> getAlertMessage() {
-            Random random = new Random();
-            int randomNumber = random.nextInt(1000);
-            this.alertMessage.setValue("Nº de casos no país subiu para "+randomNumber);
+            Integer totalCases = 0;
+
+            if(this.state.getValue() != null) {
+                for (State state : this.state.getValue()) {
+                    totalCases += state.getCases();
+                }
+            }
+            this.alertMessage.setValue("Nº de casos no país subiu para "+ NumberUtil.currencyFormat(String.valueOf(totalCases)));
         return  alertMessage;
     }
 
