@@ -9,12 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilecovidinfo.R;
 import com.example.mobilecovidinfo.model.State;
 import com.example.mobilecovidinfo.util.DateUtil;
 import com.example.mobilecovidinfo.util.NumberUtil;
+import com.example.mobilecovidinfo.view.MainFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,13 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
         holder.txtTotalCases.setText(NumberUtil.currencyFormat(String.valueOf(this.stateList.get(position).getCases())));
         holder.txtTotalSuspects.setText(NumberUtil.currencyFormat(String.valueOf(this.stateList.get(position).getSuspects())));
         holder.txtDataAtualizacao.setText("Ultima atualização: "+DateUtil.dateFormat(this.stateList.get(position).getDatetime()));
+        holder.txtTotalCases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavDirections action = MainFragmentDirections.actionMainFragmentToSettingsFragment();
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
     }
 
     @Override

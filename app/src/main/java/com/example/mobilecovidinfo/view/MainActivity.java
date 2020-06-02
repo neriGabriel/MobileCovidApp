@@ -17,6 +17,8 @@ import android.view.MenuInflater;
 import com.example.mobilecovidinfo.R;
 import com.example.mobilecovidinfo.databinding.ActivityMainBinding;
 
+import static androidx.navigation.Navigation.findNavController;
+
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding activityMainBinding;
@@ -29,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
         this.activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         this.activityMainBinding.getRoot();
 
-        this.navController = Navigation.findNavController(this, R.id.navHost);
+        this.navController = findNavController(this, R.id.navHost);
         NavigationUI.setupActionBarWithNavController(this, this.navController);
+
 
         this.actionBar = this.getSupportActionBar();
         this.actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorGreen)));
