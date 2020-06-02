@@ -1,17 +1,44 @@
 package com.example.mobilecovidinfo.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "tb_state")
 public class State implements Serializable {
+    @PrimaryKey()
+    @ColumnInfo(name = "st_id")
+    @NonNull
     private int uid;
+
+    @ColumnInfo(name = "st_uf")
     private String uf;
+
+    @ColumnInfo(name = "st_state")
     private String state;
+
+    @ColumnInfo(name = "st_cases")
     private Integer cases;
+
+    @ColumnInfo(name = "st_deaths")
     private Integer deaths;
+
+    @ColumnInfo(name = "st_suspects")
     private Integer suspects;
+
+    @ColumnInfo(name = "st_refuses")
     private Integer refuses;
+
+    @ColumnInfo(name = "st_boradcast")
     private Boolean broadcast;
+
+    @ColumnInfo(name = "st_comments")
     private String comments;
+
+    @ColumnInfo(name = "st_datetime")
     private String datetime;
 
     public State() {

@@ -42,7 +42,6 @@ public class MainFragment extends Fragment {
     private StateMainFragmentAdapter stateAdapter;
 
 
-
     public MainFragment() {
     }
 
@@ -53,7 +52,7 @@ public class MainFragment extends Fragment {
         this.fragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         this.fragmentMainBinding.setLifecycleOwner(this);
         View view = this.fragmentMainBinding.getRoot();
-        this.actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        this.actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         this.actionBar.setTitle("Covid info");
 
         this.mainFragmentViewModel = new ViewModelProvider(this).get(MainFragmentViewModel.class);
@@ -63,7 +62,7 @@ public class MainFragment extends Fragment {
         this.fragmentMainBinding.recyclerView.setAdapter(this.stateAdapter);
 
         this.mainFragmentViewModel.getCovidInfo().observe(fragmentMainBinding.getLifecycleOwner(), states -> {
-            if(states != null) {
+            if (states != null) {
                 this.stateList.addAll(states);
                 this.stateAdapter.notifyDataSetChanged();
 
@@ -71,12 +70,17 @@ public class MainFragment extends Fragment {
                     fragmentMainBinding.txtAlerta.setText(s);
                 });
 
-            }else {
-                Toast.makeText(getContext(), "Não foi possível conectar ao provedor de informações!", Toast.LENGTH_SHORT).show();
+            }
+
+            else {
+                Toast.makeText(getContext(), "Não foi possível conectar ao provedor de informações, para continuar sua experiencia utlizaremos dados salvos no device!", Toast.LENGTH_SHORT).show();
+                this.mainFragmentViewModel.getCovidInfoRoom().observe(fragmentMainBinding.getLifecycleOwner(), s -> {
+                    this.stateList.addAll(s);
+                    this.stateAdapter.notifyDataSetChanged();
+                });
             }
 
         });
-
 
 
         return view;

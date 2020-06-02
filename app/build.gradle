@@ -36,6 +36,14 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    //Dependencias do ROOM
+    //Link => https://developer.android.com/training/data-storage/room
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    //Fim das dependencias do ROOM
+
     //Dependencias do NAVIGATION
     //Link => https://developer.android.com/guide/navigation/navigation-getting-started
     def nav_version = "2.3.0-beta01"
