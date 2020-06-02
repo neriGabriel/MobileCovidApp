@@ -9,6 +9,7 @@ import com.example.mobilecovidinfo.retrofit.RetrofitConfig;
 
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;

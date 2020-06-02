@@ -1,6 +1,8 @@
 package com.example.mobilecovidinfo.model;
 
-public class State {
+import java.io.Serializable;
+
+public class State implements Serializable {
     private int uid;
     private String uf;
     private String state;

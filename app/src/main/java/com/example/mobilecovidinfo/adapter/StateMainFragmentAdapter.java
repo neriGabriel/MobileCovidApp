@@ -8,13 +8,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilecovidinfo.R;
 import com.example.mobilecovidinfo.model.State;
 import com.example.mobilecovidinfo.util.DateUtil;
 import com.example.mobilecovidinfo.util.NumberUtil;
+import com.example.mobilecovidinfo.view.MainFragmentDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +46,10 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
         holder.txtTotalCases.setText(NumberUtil.currencyFormat(String.valueOf(this.stateList.get(position).getCases())));
         holder.txtTotalSuspects.setText(NumberUtil.currencyFormat(String.valueOf(this.stateList.get(position).getSuspects())));
         holder.txtDataAtualizacao.setText("Ultima atualização: "+DateUtil.dateFormat(this.stateList.get(position).getDatetime()));
+        holder.cardItem.setOnClickListener(view -> {
+            NavDirections action = MainFragmentDirections.actionMainFragmentToStateDetailsFragment(this.stateList.get(position));
+            Navigation.findNavController(view).navigate(action);
+        });
     }
 
     @Override
@@ -55,7 +63,8 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
         TextView txtTotalCases;
         TextView txtTotalSuspects;
         TextView txtDataAtualizacao;
-        ConstraintLayout mainContainer;
+        CardView cardItem;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,7 +72,7 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
             this.txtTotalCases = itemView.findViewById(R.id.txtTotalCases);
             this.txtTotalSuspects = itemView.findViewById(R.id.txtTotalSuspects);
             this.txtDataAtualizacao = itemView.findViewById(R.id.txtDtAtutalizacao);
-            this.mainContainer = itemView.findViewById(R.id.mainContainer);
+            this.cardItem = itemView.findViewById(R.id.cardItem);
         }
     }
 }

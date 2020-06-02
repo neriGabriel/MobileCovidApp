@@ -4,8 +4,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -13,16 +11,13 @@ import androidx.navigation.ui.NavigationUI;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 
 import com.example.mobilecovidinfo.R;
 import com.example.mobilecovidinfo.databinding.ActivityMainBinding;
-import com.example.mobilecovidinfo.model.State;
-import com.example.mobilecovidinfo.viewmodel.MainActivityViewModel;
 
-import java.util.List;
+import static androidx.navigation.Navigation.findNavController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,8 +31,9 @@ public class MainActivity extends AppCompatActivity {
         this.activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         this.activityMainBinding.getRoot();
 
-        this.navController = Navigation.findNavController(this, R.id.fragment);
+        this.navController = findNavController(this, R.id.navHost);
         NavigationUI.setupActionBarWithNavController(this, this.navController);
+
 
         this.actionBar = this.getSupportActionBar();
         this.actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.colorGreen)));

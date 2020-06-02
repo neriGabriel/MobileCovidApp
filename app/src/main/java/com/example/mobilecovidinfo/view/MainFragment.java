@@ -48,11 +48,11 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.fragmentMainBinding = DataBindingUtil.setContentView(getActivity(), R.layout.fragment_main);
+        this.fragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         this.fragmentMainBinding.setLifecycleOwner(this);
-        this.fragmentMainBinding.getRoot();
+        View view = this.fragmentMainBinding.getRoot();
         this.actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        this.actionBar.setTitle("Covid Info");
+        this.actionBar.setTitle("Covid info");
 
         this.mainFragmentViewModel = new ViewModelProvider(this).get(MainFragmentViewModel.class);
 
@@ -74,6 +74,6 @@ public class MainFragment extends Fragment {
 
         });
 
-        return this.getView();
+        return view;
     }
 }
