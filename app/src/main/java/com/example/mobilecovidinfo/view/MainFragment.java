@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mobilecovidinfo.R;
 import com.example.mobilecovidinfo.adapter.StateMainFragmentAdapter;
@@ -58,8 +59,12 @@ public class MainFragment extends Fragment {
         });
 
         this.mainFragmentViewModel.getCovidInfo().observe(fragmentMainBinding.getLifecycleOwner(), states -> {
-            this.stateList.addAll(states);
-            this.stateAdapter.notifyDataSetChanged();
+            if(states != null) {
+                this.stateList.addAll(states);
+                this.stateAdapter.notifyDataSetChanged();
+            } else {
+                Toast.makeText(getContext(), "Erro ao conectar com o servidor de dados, verifique sua conexão!", Toast.LENGTH_SHORT).show();
+            }
         });
 
         return this.getView();
