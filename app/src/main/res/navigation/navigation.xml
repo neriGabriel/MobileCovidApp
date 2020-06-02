@@ -12,10 +12,21 @@
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_stateDetailsFragment"
+            app:destination="@id/stateDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.mobilecovidinfo.view.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/stateDetailsFragment"
+        android:name="com.example.mobilecovidinfo.view.StateDetailsFragment"
+        android:label="StateDetailsFragment" >
+        <argument
+            android:name="state"
+            app:argType="com.example.mobilecovidinfo.model.State" />
+    </fragment>
 </navigation>

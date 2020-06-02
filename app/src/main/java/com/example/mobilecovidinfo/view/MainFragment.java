@@ -52,7 +52,7 @@ public class MainFragment extends Fragment {
         this.fragmentMainBinding.setLifecycleOwner(this);
         View view = this.fragmentMainBinding.getRoot();
         this.actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        this.actionBar.setTitle("Covid Info");
+        this.actionBar.setTitle("Covid info");
 
         this.mainFragmentViewModel = new ViewModelProvider(this).get(MainFragmentViewModel.class);
 

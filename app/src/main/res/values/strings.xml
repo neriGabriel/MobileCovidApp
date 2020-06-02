@@ -2,6 +2,9 @@
     <string name="app_name">Mobile Covid Info</string>
     <string name="total_de_casos">Total de casos:</string>
     <string name="total_de_suspeitos">Total de suspeitos:</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
     <string-array name="states">
         <item>Selecione</item>
         <item>Acre</item>
