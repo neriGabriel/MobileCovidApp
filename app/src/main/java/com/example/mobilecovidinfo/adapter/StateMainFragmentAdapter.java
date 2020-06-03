@@ -52,6 +52,13 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
             NavDirections action = MainFragmentDirections.actionMainFragmentToStateDetailsFragment(this.stateList.get(position));
             Navigation.findNavController(view).navigate(action);
         });
+        if(this.stateList.get(position).getCases() < 5000) {
+            holder.stateInfoBinding.cardItem.setCardBackgroundColor(Color.parseColor("#0F9D58"));
+        } else if(this.stateList.get(position).getCases() < 10000) {
+            holder.stateInfoBinding.cardItem.setCardBackgroundColor(Color.parseColor("#e5c827"));
+        } else {
+            holder.stateInfoBinding.cardItem.setCardBackgroundColor(Color.parseColor("#dd361c"));
+        }
     }
 
     @Override

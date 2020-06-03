@@ -17,7 +17,6 @@ public class StateDetailsFragmentViewModel extends ViewModel {
         if(state != null) {
             stateMutableLiveData.setValue(state);
         }
-
         return stateMutableLiveData;
     }
 }

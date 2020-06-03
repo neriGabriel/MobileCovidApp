@@ -15,7 +15,7 @@ public interface StateDao {
     @Insert
     void insert(List<State> state);
 
-    @Query("SELECT * FROM tb_state")
+    @Query("SELECT * FROM tb_state ORDER BY st_cases DESC")
     List<State> getLastRegisters();
 
     @Query("DELETE FROM tb_state")
