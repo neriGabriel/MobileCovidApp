@@ -69,6 +69,7 @@ public class MainFragment extends Fragment {
     private void getCovidInfo() {
         this.mainFragmentViewModel.getCovidInfo().observe(fragmentMainBinding.getLifecycleOwner(), states -> {
             if (states != null) {
+                this.stateList.clear();
                 this.stateList.addAll(states);
                 this.stateAdapter.notifyDataSetChanged();
                 this.updateTotalText();
