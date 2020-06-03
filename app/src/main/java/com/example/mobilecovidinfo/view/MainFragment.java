@@ -49,7 +49,6 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("MainFragment", "onCreateView");
         this.fragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         this.fragmentMainBinding.setLifecycleOwner(this);
         View view = this.fragmentMainBinding.getRoot();

@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilecovidinfo.R;
+import com.example.mobilecovidinfo.databinding.StateInfoBinding;
 import com.example.mobilecovidinfo.model.State;
 import com.example.mobilecovidinfo.util.DateUtil;
 import com.example.mobilecovidinfo.util.NumberUtil;
@@ -26,7 +27,7 @@ import java.util.Random;
 
 public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFragmentAdapter.ViewHolder> {
 
-    private List<State> stateList = new ArrayList<>();
+    private List<State> stateList;
 
     public StateMainFragmentAdapter(List<State> stateList) {
         this.stateList = stateList;
@@ -35,18 +36,19 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                                      .inflate(R.layout.state_info, parent, false);
-        return new ViewHolder(itemView);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        StateInfoBinding stateInfoBinding = StateInfoBinding.inflate(layoutInflater, parent, false);
+
+        return new ViewHolder(stateInfoBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtState.setText(this.stateList.get(position).getState());
-        holder.txtTotalCases.setText(NumberUtil.currencyFormat(String.valueOf(this.stateList.get(position).getCases())));
-        holder.txtTotalSuspects.setText(NumberUtil.currencyFormat(String.valueOf(this.stateList.get(position).getSuspects())));
-        holder.txtDataAtualizacao.setText("Ultima atualização: "+DateUtil.dateFormat(this.stateList.get(position).getDatetime()));
-        holder.cardItem.setOnClickListener(view -> {
+        holder.stateInfoBinding.txtState.setText(this.stateList.get(position).getState());
+        holder.stateInfoBinding.txtTotalCases.setText(NumberUtil.currencyFormat(String.valueOf(this.stateList.get(position).getCases())));
+        holder.stateInfoBinding.txtTotalSuspects.setText(NumberUtil.currencyFormat(String.valueOf(this.stateList.get(position).getSuspects())));
+        holder.stateInfoBinding.txtDtAtutalizacao.setText("Ultima atualização: "+DateUtil.dateFormat(this.stateList.get(position).getDatetime()));
+        holder.stateInfoBinding.cardItem.setOnClickListener(view -> {
             NavDirections action = MainFragmentDirections.actionMainFragmentToStateDetailsFragment(this.stateList.get(position));
             Navigation.findNavController(view).navigate(action);
         });
@@ -59,20 +61,11 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtState;
-        TextView txtTotalCases;
-        TextView txtTotalSuspects;
-        TextView txtDataAtualizacao;
-        CardView cardItem;
+        StateInfoBinding stateInfoBinding;
 
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.txtState = itemView.findViewById(R.id.txtState);
-            this.txtTotalCases = itemView.findViewById(R.id.txtTotalCases);
-            this.txtTotalSuspects = itemView.findViewById(R.id.txtTotalSuspects);
-            this.txtDataAtualizacao = itemView.findViewById(R.id.txtDtAtutalizacao);
-            this.cardItem = itemView.findViewById(R.id.cardItem);
+        public ViewHolder(@NonNull StateInfoBinding stateInfoBinding) {
+            super(stateInfoBinding.getRoot());
+            this.stateInfoBinding = stateInfoBinding;
         }
     }
 }
