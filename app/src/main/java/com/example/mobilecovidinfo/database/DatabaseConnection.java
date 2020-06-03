@@ -12,14 +12,15 @@ import com.example.mobilecovidinfo.model.State;
 public abstract class DatabaseConnection extends RoomDatabase {
 
     private static DatabaseConnection instance;
+
     public abstract StateDao stateDao();
 
     public static DatabaseConnection getInstance(Context context) {
-        if(instance == null) {
+        if (instance == null) {
             instance = Room.databaseBuilder(context, DatabaseConnection.class, "covid_app")
-                           .allowMainThreadQueries()
-                           .build();
-            }
+                    .allowMainThreadQueries()
+                    .build();
+        }
         return instance;
     }
 }

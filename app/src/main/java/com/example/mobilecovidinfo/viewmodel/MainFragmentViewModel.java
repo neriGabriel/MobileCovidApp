@@ -1,6 +1,7 @@
 package com.example.mobilecovidinfo.viewmodel;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -55,14 +56,17 @@ public class MainFragmentViewModel extends AndroidViewModel {
                                .observeOn(AndroidSchedulers.mainThread())
                                .subscribe(data -> {
                                    this.state.setValue(data.getData());
+                                   this.connection.stateDao().delete();
                                    this.connection.stateDao().insert(data.getData());
                                }, Throwable -> {
-                                   this.state.setValue(null);
+                                   this.state.setValue(this.getCovidInfoRoom().getValue());
+                                   Toast.makeText(getApplication(), "Não foi possível conectar com o servidor de informações! utilizaremos as informações armazenadas no device!", Toast.LENGTH_SHORT).show();
                                });
         }
         return state;
     }
-    public MutableLiveData<List<State>> getCovidInfoRoom() {
+
+    private MutableLiveData<List<State>> getCovidInfoRoom() {
         if(this.state.getValue() == null) {
             state.setValue(this.connection.stateDao().getLastRegisters());
         }

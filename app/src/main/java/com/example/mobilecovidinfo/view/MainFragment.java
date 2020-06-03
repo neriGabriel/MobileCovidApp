@@ -49,6 +49,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("MainFragment", "onCreateView");
         this.fragmentMainBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false);
         this.fragmentMainBinding.setLifecycleOwner(this);
         View view = this.fragmentMainBinding.getRoot();
@@ -61,28 +62,26 @@ public class MainFragment extends Fragment {
         this.fragmentMainBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         this.fragmentMainBinding.recyclerView.setAdapter(this.stateAdapter);
 
+        this.getCovidInfo();
+
+        return view;
+    }
+
+    private void getCovidInfo() {
         this.mainFragmentViewModel.getCovidInfo().observe(fragmentMainBinding.getLifecycleOwner(), states -> {
             if (states != null) {
                 this.stateList.addAll(states);
                 this.stateAdapter.notifyDataSetChanged();
-
-                this.mainFragmentViewModel.getAlertMessage().observe(fragmentMainBinding.getLifecycleOwner(), s -> {
-                    fragmentMainBinding.txtAlerta.setText(s);
-                });
-
+                this.updateTotalText();
             }
-
-            else {
-                Toast.makeText(getContext(), "Não foi possível conectar ao provedor de informações, para continuar sua experiencia utlizaremos dados salvos no device!", Toast.LENGTH_SHORT).show();
-                this.mainFragmentViewModel.getCovidInfoRoom().observe(fragmentMainBinding.getLifecycleOwner(), s -> {
-                    this.stateList.addAll(s);
-                    this.stateAdapter.notifyDataSetChanged();
-                });
-            }
-
         });
-
-
-        return view;
     }
+
+    private void updateTotalText() {
+        this.mainFragmentViewModel.getAlertMessage().observe(fragmentMainBinding.getLifecycleOwner(), s -> {
+            fragmentMainBinding.txtAlerta.setText(s);
+        });
+    }
+
+
 }
