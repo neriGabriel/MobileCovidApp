@@ -57,7 +57,7 @@ public class MainFragment extends Fragment {
 
         this.mainFragmentViewModel = new ViewModelProvider(this).get(MainFragmentViewModel.class);
 
-        this.stateAdapter = new StateMainFragmentAdapter(this.stateList);
+        this.stateAdapter = new StateMainFragmentAdapter(this.stateList, getContext());
         this.fragmentMainBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         this.fragmentMainBinding.recyclerView.setAdapter(this.stateAdapter);
 

@@ -1,5 +1,6 @@
 package com.example.mobilecovidinfo.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilecovidinfo.R;
+import com.example.mobilecovidinfo.database.DatabaseConnection;
 import com.example.mobilecovidinfo.databinding.StateInfoBinding;
 import com.example.mobilecovidinfo.model.State;
 import com.example.mobilecovidinfo.util.DateUtil;
@@ -28,9 +30,11 @@ import java.util.Random;
 public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFragmentAdapter.ViewHolder> {
 
     private List<State> stateList;
+    private final DatabaseConnection connection;
 
-    public StateMainFragmentAdapter(List<State> stateList) {
+    public StateMainFragmentAdapter(List<State> stateList, Context context) {
         this.stateList = stateList;
+        this.connection = DatabaseConnection.getInstance(context);
     }
 
     @NonNull
@@ -58,6 +62,12 @@ public class StateMainFragmentAdapter extends RecyclerView.Adapter<StateMainFrag
             holder.stateInfoBinding.cardItem.setCardBackgroundColor(Color.parseColor("#e5c827"));
         } else {
             holder.stateInfoBinding.cardItem.setCardBackgroundColor(Color.parseColor("#dd361c"));
+        }
+        State stateDb = this.connection.stateDao().getById(this.stateList.get(position).getUid());
+        if(this.stateList.get(position).getDeaths() > stateDb.getDeaths()) {
+
+        } else {
+
         }
     }
 

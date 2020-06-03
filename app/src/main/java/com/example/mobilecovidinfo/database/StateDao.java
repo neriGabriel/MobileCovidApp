@@ -20,4 +20,7 @@ public interface StateDao {
 
     @Query("DELETE FROM tb_state")
     void delete();
+
+    @Query("SELECT * FROM tb_state WHERE st_id = :id")
+    State getById(Integer id);
 }
